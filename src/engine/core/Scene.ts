@@ -115,7 +115,6 @@ export default class Scene {
 
   render(ctx: CanvasRenderingContext2D) {
     this.drawCalls = [];
-    this.entities.sort((a, b) => a.getFeet() - b.getFeet());
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.save();

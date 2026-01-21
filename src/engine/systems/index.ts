@@ -14,4 +14,3 @@ export { default as TilemapRenderSystem } from './render/TilemapRender.system';
 export { default as DebugRenderSystem } from './render/DebugRender.system';
 export { default as CameraShiftSystem } from './render/CameraShift.system';
 export { default as DebugInputSystem } from './update/DebugInput.system';
-export { default as ElevationTransitionSystem } from './update/ElevationTransition.system';

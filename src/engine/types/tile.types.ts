@@ -15,12 +15,12 @@ export type TileSide = {
 export class TileDef {
   id: number;
   walkable: boolean;
-  sides?: TileSide;
+  sides: TileSide;
 
   constructor(id: number, walkable: boolean, sides?: TileSide) {
     this.id = id;
     this.walkable = walkable;
-    this.sides = sides;
+    this.sides = sides ?? { top: true, right: true, bottom: true, left: true };
   }
 }
 

@@ -9,15 +9,9 @@ export default class Tileset {
     this.columns = image.width / tileSize;
   }
 
-  getTileRect(id: number) {
-    const x = (id % this.columns) * this.tileSize;
-    const y = Math.floor(id / this.columns) * this.tileSize;
-
-    return { x, y, w: this.tileSize, h: this.tileSize };
-  }
-
   render(ctx: CanvasRenderingContext2D, id: number, x: number, y: number, scale: number = 1) {
-    const tileRect = this.getTileRect(id);
-    ctx.drawImage(this.image, tileRect.x, tileRect.y, tileRect.w, tileRect.h, x * scale, y * scale, scale, scale);
+    const tileX = (id % this.columns) * this.tileSize;
+    const tileY = Math.floor(id / this.columns) * this.tileSize;
+    ctx.drawImage(this.image, tileX, tileY, this.tileSize, this.tileSize, x * scale, y * scale, scale, scale);
   }
 }

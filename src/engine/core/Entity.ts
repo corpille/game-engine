@@ -37,11 +37,6 @@ export default class Entity {
     return new Vec2(colliderBounds.x + colliderBounds.w / 2, colliderBounds.y + colliderBounds.h / 2);
   }
 
-  getFeet(position?: Vec2) {
-    const colliderBounds = this.getColliderBounds(position);
-    return colliderBounds.y + colliderBounds.h;
-  }
-
   isVisible(cameraBounds: Rect): boolean {
     return aabbOverlaps(this.getBounds(), cameraBounds);
   }
@@ -62,18 +57,6 @@ export default class Entity {
   delete(...cls: any[]): this {
     cls.forEach((c) => this.components.delete(c));
     return this;
-  }
-
-  getColliderAt(x: number, y: number): Rect {
-    const collider = this.get(Collider);
-    const transform = this.get(Transform);
-    if (!collider || !transform) return { ...this.getBounds(), x, y };
-    return {
-      x: x + collider.offset.x * transform.scale,
-      y: y + this.getColliderBounds().h,
-      w: collider.size.w * transform.scale,
-      h: this.getColliderBounds().h,
-    };
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera) {

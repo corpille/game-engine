@@ -12,7 +12,6 @@ import {
   TilemapRenderSystem,
   CameraShiftSystem,
   MovementSystem,
-  ElevationTransitionSystem,
 } from '../engine/systems';
 import { Collider, Sprite, Transform, Camera, Interactable } from '../engine/components';
 import { Entity, Game, Input, Scene } from '../engine/core';
@@ -21,8 +20,8 @@ import { CarboardComponent } from './Carboard.component';
 import { createPlayer } from './player.factory';
 import { getImage } from '../engine/utils';
 import cardboardSrc from '/assets/cardboard.webp';
-import shadowSrc from '/assets/shadow.png';
-import tilesetSrc from '/assets/tileset.png';
+import shadowSrc from '/assets/shadow.webp';
+import tilesetSrc from '/assets/tileset.webp';
 import treatSrc from '/assets/treat.webp';
 import { createWorldMap } from './worldMap.factory';
 
@@ -84,7 +83,6 @@ const systems = [
   new InteractionUISystem(),
   new PlayerInputSystem(),
   new MovementSystem(),
-  // new ElevationTransitionSystem(),
 ];
 
 scene.addSystems(...systems);
