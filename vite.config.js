@@ -3,12 +3,9 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(
   js13kViteConfig({
-    terserOptions: {
-      mangle: {
-        properties: {
-          keep_quoted: true,
-        },
-      },
-    },
+    roadrollerOptions: false,
+    terserOptions: false,
+    ectPlugin: false,
+    advzipOptions: false,
   }),
 );
