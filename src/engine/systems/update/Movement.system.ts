@@ -51,14 +51,21 @@ export default class MovementSystem extends UpdateSystem {
     }
 
     if (nextCell) {
-      // TODO: Handle diagonal movement
-      const move = Object.entries(moves).find(([key, value]) => value.equals(direction))?.[0];
-      if (move) {
-        const oppositeMove = opposite[move];
-        const cellSide = cell.sides[move as keyof typeof cell.sides];
-        const oppositeSide = nextCell.sides[oppositeMove as keyof typeof cell.sides];
-        return cellSide && oppositeSide;
+      let checks = [direction];
+      if (direction.x !== 0 && direction.y !== 0) {
+        checks = [new Vec2(direction.x, 0), new Vec2(0, direction.y)];
       }
+
+      return checks.every((check) => {
+        const move = Object.entries(moves).find(([key, value]) => value.equals(check))?.[0];
+        if (move) {
+          const oppositeMove = opposite[move];
+          const cellSide = cell.sides[move as keyof typeof cell.sides];
+          const oppositeSide = nextCell.sides[oppositeMove as keyof typeof cell.sides];
+          return cellSide && oppositeSide;
+        }
+        return false;
+      }); 
     }
     return false;
   }

@@ -20,7 +20,7 @@ export function createPlayer(x: number, y: number): Entity {
   // Transform
   transform.position = new Vec2(x, y);
   transform.elevation = 0;
-  transform.scale = 4;
+  transform.scale = 3.2;
 
   // Animation
   const animation = new AnimationState();

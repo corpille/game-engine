@@ -52,7 +52,7 @@ function getImage(src: string): Promise<HTMLImageElement> {
 
   transform.position = new Vec2(1050, 450);
   transform.elevation = 2;
-  transform.scale = 3;
+  transform.scale = 2.1;
   sprite.frame = { x: 0, y: 0, w: 40, h: 40 };
   collider.solid = true;
   collider.size = { w: 30, h: 10 };

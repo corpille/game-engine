@@ -28,8 +28,8 @@ export class CarboardComponent {
     const treatTransform = new Transform();
     const treatSprite = new Sprite(this.treatImage);
 
-    const x = randomBetween(1150, 1250);
-    const y = randomBetween(20, 80);
+    const x = randomBetween(1000, 1200);
+    const y = randomBetween(220, 260);
     treatTransform.position = new Vec2(x, y);
     treatTransform.elevation = 2;
     treatTransform.scale = 2;
