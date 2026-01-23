@@ -11,7 +11,7 @@ export default class Sprite {
 
   get offset(): Vec2 {
     if (!this.frame) return new Vec2(0, 0);
-    return new Vec2(-this.frame.w / 2, -this.frame.h + 2);
+    return new Vec2(-this.frame.w / 2, -this.frame.h);
   }
 
   render(ctx: CanvasRenderingContext2D, bounds: Rect, scale: number = 1) {

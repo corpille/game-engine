@@ -42,7 +42,7 @@ function getImage(src: string): Promise<HTMLImageElement> {
   const scene = new Scene();
 
   // Add player
-  scene.addEntity(createPlayer(400, 100));
+  scene.addEntity(createPlayer(400, 300));
 
   // Add cardboard
   const cardboard = new Entity();
@@ -63,7 +63,7 @@ function getImage(src: string): Promise<HTMLImageElement> {
   scene.addEntity(cardboard);
 
   // Add camera
-  const cameraEntity = new Entity().add(new Camera());
+  const cameraEntity = new Entity().add(new Camera(1.8));
   scene.addEntity(cameraEntity);
 
   const worldMap = createWorldMap([tilesetImage, shadowImage], 64);

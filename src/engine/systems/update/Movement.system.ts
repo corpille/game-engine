@@ -34,7 +34,7 @@ export default class MovementSystem extends UpdateSystem {
       const nextCell = worldMap.cellAtWorld(nextPosition.x, nextPosition.y);
 
       if (this.canMove(worldMap, transform.position, nextPosition)) {
-        this.move(transform, nextPosition.x, nextPosition.y, nextCell.height);
+        this.move(transform, nextPosition, nextCell.height);
       }
     }
   }
@@ -63,9 +63,9 @@ export default class MovementSystem extends UpdateSystem {
     return false;
   }
 
-  move(transform: Transform, x: number, y: number, height: number) {
-    transform.position.x = x;
-    transform.position.y = y;
+  move(transform: Transform, nextPosition: Vec2, height: number) {
+    transform.position.x = nextPosition.x;
+    transform.position.y = nextPosition.y;
     transform.elevation = height;
   }
 }
