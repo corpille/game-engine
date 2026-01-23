@@ -13,7 +13,8 @@ export default class EntityRenderSystem extends RenderSystem {
 
     for (const e of scene.entities.filter((e) => e.has(Transform))) {
       const transform = e.get(Transform);
-      scene.draw(transform.position.y + transform.elevation, () => e.render(ctx, camera));
+      const cameraBounds = camera.getBounds(scene.windowSize.w, scene.windowSize.h);
+      scene.draw(transform.position.y + transform.elevation, () => e.render(ctx, cameraBounds));
     }
   }
 }

@@ -10,11 +10,13 @@ export default class TilemapRenderSystem extends RenderSystem {
     const camera = cameraEntity.get(Camera);
     const worldMap = worldMapEntity.get(WorldMap);
 
-    const startX = Math.floor(camera.pos.x / worldMap.tileSize);
-    const startY = Math.floor(camera.pos.y / worldMap.tileSize);
+    const cameraBounds = camera.getBounds(scene.windowSize.w, scene.windowSize.h);
 
-    const endX = Math.ceil((camera.pos.x + camera.width) / worldMap.tileSize);
-    const endY = Math.ceil((camera.pos.y + camera.height) / worldMap.tileSize);
+    const startX = Math.floor(cameraBounds.x / worldMap.tileSize);
+    const startY = Math.floor(cameraBounds.y / worldMap.tileSize);
+
+    const endX = Math.ceil((cameraBounds.x + cameraBounds.w) / worldMap.tileSize);
+    const endY = Math.ceil((cameraBounds.y + cameraBounds.h) / worldMap.tileSize);
 
     worldMap.layers.forEach((layer, height) => {
       for (let y = startY; y < endY; y++) {

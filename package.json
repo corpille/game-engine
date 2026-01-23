@@ -9,10 +9,8 @@
     "find-deadcode": "ts-prune",
     "build": "tsc  && vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
-  },
-  "devDependencies": {
-    "ts-prune": "^0.10.3"
+    "lint": "eslint .",
+    "tauri": "tauri"
   },
   "prettier": {
     "printWidth": 120,
@@ -71,6 +69,12 @@
     "prettier": "^3.8.0",
     "terser": "^5.46.0",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "ts-prune": "^0.10.3"
   }
 }

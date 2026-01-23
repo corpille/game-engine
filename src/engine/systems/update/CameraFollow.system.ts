@@ -17,7 +17,9 @@ export default class CameraFollowSystem extends UpdateSystem {
 
     const transform = target.get(Transform);
 
-    camera.pos.x = transform.position.x - camera.width / 2;
-    camera.pos.y = transform.position.y - camera.height / 2;
+    const bounds = camera.getBounds(scene.windowSize.w, scene.windowSize.h);
+
+    camera.position.x = transform.position.x - bounds.w / 2;
+    camera.position.y = transform.position.y - bounds.h / 2;
   }
 }

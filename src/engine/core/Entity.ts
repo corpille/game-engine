@@ -59,11 +59,11 @@ export default class Entity {
     return this;
   }
 
-  render(ctx: CanvasRenderingContext2D, camera: Camera) {
+  render(ctx: CanvasRenderingContext2D, cameraBounds: Rect) {
     const transform = this.get(Transform);
 
     if (!transform) return;
-    if (!this.isVisible(camera.bounds)) return;
+    if (!this.isVisible(cameraBounds)) return;
 
     const bounds = this.getBounds();
 

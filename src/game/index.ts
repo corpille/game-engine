@@ -38,18 +38,11 @@ function getImage(src: string): Promise<HTMLImageElement> {
   const tilesetImage = await getImage(tilesetSrc);
   const treatImage = await getImage(treatSrc);
 
-  // Init canvas
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d')!;
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  document.body.appendChild(canvas);
-
   // Init scene
   const scene = new Scene();
 
   // Add player
-  scene.addEntity(createPlayer(100, 100));
+  scene.addEntity(createPlayer(400, 100));
 
   // Add cardboard
   const cardboard = new Entity();
@@ -70,7 +63,7 @@ function getImage(src: string): Promise<HTMLImageElement> {
   scene.addEntity(cardboard);
 
   // Add camera
-  const cameraEntity = new Entity().add(new Camera(window.innerWidth, window.innerHeight));
+  const cameraEntity = new Entity().add(new Camera());
   scene.addEntity(cameraEntity);
 
   const worldMap = createWorldMap([tilesetImage, shadowImage], 64);
@@ -103,7 +96,7 @@ function getImage(src: string): Promise<HTMLImageElement> {
     }
   });
 
-  const game = new Game(new Input(), ctx).addScene('game', scene).setScene('game');
+  const game = new Game(new Input()).addScene('game', scene).setScene('game');
 
   requestAnimationFrame(game.loop.bind(game));
 })();

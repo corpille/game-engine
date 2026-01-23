@@ -7,6 +7,7 @@ import { DebugRenderSystem, DebugInputSystem } from '../systems';
 import { DrawCall } from './DrawCall';
 import DebugState from './DebugState';
 import { resolveOrder } from '../utils/system.utils';
+import Game from './Game';
 
 export default class Scene {
   public debugState = new DebugState();
@@ -22,6 +23,17 @@ export default class Scene {
 
   public systems: (UpdateSystem | RenderSystem | UIRenderSystem)[] = [new DebugInputSystem()];
   public debugRenderSystem: RenderSystem = new DebugRenderSystem();
+
+  private game: Game;
+
+  get windowSize() {
+    return this.game.windowSize;
+  }
+
+  init(game: Game) {
+    this.game = game;
+    return this;
+  }
 
   addEntity(entity: Entity) {
     this.entities.push(entity);
@@ -51,8 +63,6 @@ export default class Scene {
     this.drawCalls = [];
 
     // Reset and clear the canvas
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.save();
 
     // Generate all the draw calls

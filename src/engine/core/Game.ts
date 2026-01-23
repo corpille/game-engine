@@ -5,16 +5,46 @@ const FIXED_FPS = 60;
 const FIXED_DT = 1 / FIXED_FPS;
 
 export default class Game {
+  private canvas: HTMLCanvasElement;
   private scenes: Map<string, Scene> = new Map();
   private currentScene?: Scene;
   private input: Input;
   private ctx: CanvasRenderingContext2D;
   private lastTime: number = 0;
   private accumulator: number = 0;
+  public windowSize: { w: number; h: number };
 
-  constructor(input: Input, ctx: CanvasRenderingContext2D) {
+  constructor(input: Input) {
     this.input = input;
-    this.ctx = ctx;
+    this.init();
+  }
+
+  init() {
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d')!;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    document.body.appendChild(this.canvas);
+
+    this.resizeCanvas();
+
+    window.addEventListener('resize', () => {
+     this.resizeCanvas.bind(this)()
+    });
+;
+  }
+
+  resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    const rect = this.canvas.getBoundingClientRect();
+
+    this.canvas.width = Math.floor(rect.width * dpr);
+    this.canvas.height = Math.floor(rect.height * dpr);
+    this.windowSize = { w: this.canvas.width, h: this.canvas.height };
+
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   addScene(name: string, scene: Scene) {
@@ -24,6 +54,7 @@ export default class Game {
 
   setScene(name: string) {
     this.currentScene = this.scenes.get(name);
+    this.currentScene?.init(this);
     return this;
   }
 
@@ -35,8 +66,13 @@ export default class Game {
   render() {
     this.ctx.save();
     this.ctx.imageSmoothingEnabled = false;
-    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+
+    // clear the canvas
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+   
     this.currentScene?.render(this.ctx);
+
     this.ctx.restore();
   }
 
