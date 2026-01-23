@@ -1,5 +1,5 @@
-import { Interactable, Transform, Collider, WorldMap, Player } from '../../components';
-import { Scene } from '../../core';
+import { Interactable, Transform, Collider, WorldMap } from '../../components';
+import { Entity, Scene } from '../../core';
 import { EntityRenderSystem } from '../../systems';
 import { RenderSystem } from '../../types';
 
@@ -10,33 +10,15 @@ export default class DebugRenderSystem extends RenderSystem {
     if (scene.debugState.showEntity) {
       ctx.save();
       for (const e of scene.entities.filter((e) => e.has(Transform))) {
-        const transform = e.get(Transform);
+        this.drawBound(ctx, e);
 
-        // Draw bounds
-        ctx.strokeStyle = 'red';
-        const bound = e.getBounds();
-        ctx.strokeRect(bound.x, bound.y, bound.w, bound.h);
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.fillStyle = 'yellow';
-        ctx.arc(transform.position.x, transform.position.y, 1, 0, 2 * Math.PI, false);
-        ctx.fill();
-        ctx.restore();
+        this.drawCenter(ctx, e);
 
         if (e.has(Collider)) {
-          // Draw collider bounds
-          const colliderBound = e.getColliderBounds();
-          ctx.strokeStyle = 'blue';
-          ctx.strokeRect(colliderBound.x, colliderBound.y, colliderBound.w, colliderBound.h);
+          this.drawCollider(ctx, e);
 
           if (e.has(Interactable)) {
-            // Draw interactable radius
-            ctx.beginPath();
-            ctx.strokeStyle = 'green';
-            const center = e.getCenter();
-            ctx.arc(center.x, center.y, colliderBound.w / 2 + e.get(Interactable).radius, 0, 2 * Math.PI, false);
-            ctx.stroke();
+            this.drawInteractableRadius(ctx, e);
           }
         }
       }
@@ -45,11 +27,48 @@ export default class DebugRenderSystem extends RenderSystem {
 
     if (scene.debugState.showGrid) {
       const map = scene.findEntityWith(WorldMap)?.get(WorldMap);
-      // Draw grid
       if (map) {
         this.drawGrid(ctx, map);
       }
     }
+  }
+
+  drawBound(ctx: CanvasRenderingContext2D, entity: Entity) {
+    ctx.strokeStyle = 'red';
+    const bound = entity.getBounds();
+    ctx.strokeRect(bound.x, bound.y, bound.w, bound.h);
+  }
+
+  drawCenter(ctx: CanvasRenderingContext2D, entity: Entity) {
+    const transform = entity.get(Transform);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = 'yellow';
+    ctx.arc(transform.position.x, transform.position.y, 2, 0, 2 * Math.PI, false);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  drawCollider(ctx: CanvasRenderingContext2D, entity: Entity) {
+    const colliderBound = entity.getColliderBounds();
+    ctx.strokeStyle = 'blue';
+    ctx.strokeRect(colliderBound.x, colliderBound.y, colliderBound.w, colliderBound.h);
+  }
+
+  drawInteractableRadius(ctx: CanvasRenderingContext2D, entity: Entity) {
+    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+    const center = entity.getCenter();
+    ctx.arc(
+      center.x,
+      center.y,
+      entity.getColliderBounds().w / 2 + entity.get(Interactable).radius,
+      0,
+      2 * Math.PI,
+      false,
+    );
+    ctx.stroke();
   }
 
   drawGrid(ctx: CanvasRenderingContext2D, map: WorldMap): void {

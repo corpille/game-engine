@@ -17,7 +17,6 @@ export default class InteractionInputSystem extends UpdateSystem {
         player,
         target,
       });
-      input.clearFrame();
     }
   }
 }

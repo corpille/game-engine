@@ -21,31 +21,31 @@ export function createWorldMap(tilesetImage: HTMLImageElement[], tileSize: numbe
     [0, new TileDef(0, true, { top: false, right: true, bottom: true, left: false })], // Top left corner
     [1, new TileDef(1, true, { top: false, right: true, bottom: true, left: true })], // Top
     [2, new TileDef(2, true, { top: false, right: false, bottom: true, left: true })], // Top right corner
-    [3, new TileDef(3, true, { top: false, right: false, bottom: true, left: false })], // Small vertical top
+    [3, new TileDef(3, true, { top: false, right: false, bottom: true, left: false })], // Small verti2l top
     [5, new TileDef(5, true, { top: false, right: true, bottom: true, left: false })], // Top left height corner
     [6, new TileDef(6, true, { top: false, right: true, bottom: true, left: true })], // Top height
     [7, new TileDef(7, true, { top: false, right: false, bottom: true, left: true })], // Top right height corner
-    [8, new TileDef(8, true, { top: false, right: false, bottom: true, left: false })], //  Small vertical height top
+    [8, new TileDef(8, true, { top: false, right: false, bottom: true, left: false })], //  Small verti2l height top
 
     // Line 2
     [9, new TileDef(9, true, { top: true, right: true, bottom: true, left: false })], // Left
     [10, new TileDef(10, true, { top: true, right: true, bottom: true, left: true })], // Ground
     [11, new TileDef(11, true, { top: true, right: false, bottom: true, left: true })], // Right
-    [12, new TileDef(12, true, { top: true, right: false, bottom: true, left: false })], // Small vertical middle
+    [12, new TileDef(12, true, { top: true, right: false, bottom: true, left: false })], // Small verti2l middle
     [14, new TileDef(14, true, { top: true, right: true, bottom: true, left: false })], // Left height
     [15, new TileDef(15, true, { top: true, right: true, bottom: true, left: true })], // Ground height
     [16, new TileDef(16, true, { top: true, right: false, bottom: true, left: true })], // Right height
-    [17, new TileDef(17, true, { top: true, right: false, bottom: true, left: false })], // Small vertical height middle
+    [17, new TileDef(17, true, { top: true, right: false, bottom: true, left: false })], // Small verti2l height middle
 
     // Line 3
     [18, new TileDef(18, true, { top: true, right: true, bottom: false, left: false })], // Bottom left corner
     [19, new TileDef(19, true, { top: true, right: true, bottom: false, left: true })], // Bottom
     [20, new TileDef(20, true, { top: true, right: false, bottom: false, left: true })], // Bottom right corner
-    [21, new TileDef(21, true, { top: true, right: false, bottom: false, left: false })], // Small vertical bottom
+    [21, new TileDef(21, true, { top: true, right: false, bottom: false, left: false })], // Small verti2l bottom
     [23, new TileDef(23, true, { top: true, right: true, bottom: false, left: false })], // Bottom left height corner
     [24, new TileDef(24, true, { top: true, right: true, bottom: false, left: true })], // Bottom height
     [25, new TileDef(25, true, { top: true, right: false, bottom: false, left: true })], // Bottom right height corner
-    [26, new TileDef(26, true, { top: true, right: false, bottom: false, left: false })], //  Small vertical height bottom
+    [26, new TileDef(26, true, { top: true, right: false, bottom: false, left: false })], //  Small verti2l height bottom
 
     // Line 4
     [27, new TileDef(27, true, { top: false, right: true, bottom: false, left: false })], // Small horizontal left
@@ -74,28 +74,16 @@ export function createWorldMap(tilesetImage: HTMLImageElement[], tileSize: numbe
     [53, new TileDef(53, false, { top: false, right: false, bottom: false, left: false })], // Wall exterior square
   ]);
 
-  const aa = 0;
-  const ba = 1;
-  const ca = 2;
-
-  const ab = 9;
-  const bb = 10;
-  const cb = 11;
-
-  const ac = 18;
-  const bc = 19;
-  const cc = 20;
-
   const tilesLayer1 = [
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-    [aa, ba, ba, ba, ba, ba, ba, ba, ba, ba, ba, ba, ba, ba, -1, -1, -1, -1, -1, -1],
-    [ab, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, cb],
-    [ab, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, cb],
-    [ab, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, cb],
-    [ab, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, cb],
-    [ab, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, cb, bb, bb, bb, bb, bb, cc],
-    [ab, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bb, bc, -1, -1, -1, -1, -1, -1],
-    [ac, bc, bc, bc, bc, bc, bc, bc, bc, bc, bc, bc, cc, -1, -1, -1, -1, -1, -1, -1],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1],
+    [9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11],
+    [9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11],
+    [9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11],
+    [9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11],
+    [9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 20],
+    [9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19, -1, -1, -1, -1, -1, -1],
+    [18, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 20, -1, -1, -1, -1, -1, -1, -1],
   ];
 
   const tilesLayer2 = [

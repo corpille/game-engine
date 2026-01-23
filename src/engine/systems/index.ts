@@ -2,7 +2,6 @@ export { default as AnimationSystem } from './update/Animation.system';
 export { default as AnimationStateSystem } from './update/AnimationState.system';
 export { default as CameraFollowSystem } from './update/CameraFollow.system';
 export { default as CollisionSystem } from './update/Collission.system';
-export { default as DebugSystem } from './render/DebugRender.system';
 export { default as InteractionDetectionSystem } from './update/InteractionDetection.system';
 export { default as InteractionInputSystem } from './update/InteractionInput.system';
 export { default as InteractionUISystem } from './render/InteractionUI.system';

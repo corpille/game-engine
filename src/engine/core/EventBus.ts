@@ -1,4 +1,4 @@
-export type EventHandler = (data?: any) => void;
+type EventHandler = (data?: any) => void;
 
 export default class EventBus {
   private listeners = new Map<string, EventHandler[]>();

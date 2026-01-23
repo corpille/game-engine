@@ -1,7 +1,7 @@
 import { Entity, Scene } from '../engine/core';
 import { Transform, Sprite, Interactable } from '../engine/components';
 import { Vec2 } from '../engine/types';
-import { randomBetween } from '../engine/utils';
+import { randomBetween } from '../engine/utils/number.utils';
 
 export class CarboardComponent {
   nbTreat = 3;

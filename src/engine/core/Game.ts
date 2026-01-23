@@ -29,6 +29,7 @@ export default class Game {
 
   update(dt: number) {
     this.currentScene?.update(dt, this.input);
+    this.input.clearFrame();
   }
 
   render() {

@@ -1,6 +1,5 @@
 import { Camera, WorldMap } from '../../components';
 import { Scene } from '../../core';
-import { DrawCall } from '../../core/DrawCall';
 import { RenderSystem } from '../../types';
 
 export default class TilemapRenderSystem extends RenderSystem {
@@ -24,11 +23,7 @@ export default class TilemapRenderSystem extends RenderSystem {
 
           const tileId = layer.tiles[x + y * layer.width];
           if (tileId === -1) continue;
-          scene.drawCalls.push(
-            new DrawCall(y * worldMap.tileSize + height, () =>
-              layer.tileset.render(ctx, tileId, x, y, worldMap.tileSize),
-            ),
-          );
+          scene.draw(y * worldMap.tileSize + height, () => layer.tileset.render(ctx, tileId, x, y, worldMap.tileSize));
         }
       }
     });

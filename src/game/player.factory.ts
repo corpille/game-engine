@@ -38,7 +38,7 @@ export function createPlayer(x: number, y: number): Entity {
   collider.solid = true;
   collider.static = false;
   collider.size = { w: 13, h: 8 };
-  collider.offset = { x: 4, y: 12 };
+  collider.offset = new Vec2(4, 12);
 
   player
     .add(transform)

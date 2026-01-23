@@ -1,8 +1,4 @@
-import { Rect, Vec2 } from './types';
-
-export function clamp(value: number, min: number, max: number): number {
-  return Math.min(Math.max(value, min), max);
-}
+import { Rect, Vec2 } from '../types';
 
 export function randomBetween(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -24,12 +20,4 @@ export function resolveAABB(a: Rect, b: Rect): Vec2 {
   } else {
     return new Vec2(0, dy > 0 ? overlapY : -overlapY);
   }
-}
-
-export function getImage(src: string): Promise<HTMLImageElement> {
-  return new Promise((resolve) => {
-    const image = new Image();
-    image.src = src;
-    image.onload = () => resolve(image);
-  });
 }

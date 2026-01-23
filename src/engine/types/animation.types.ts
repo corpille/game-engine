@@ -5,7 +5,7 @@ export interface Frame {
   duration: number;
 }
 
-export interface AnimationEvent {
+interface AnimationEvent {
   frame: number;
   callback: (entity: any) => void;
 }

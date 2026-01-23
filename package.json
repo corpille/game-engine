@@ -6,11 +6,14 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "vite",
+    "find-deadcode": "ts-prune",
     "build": "tsc  && vite build",
     "preview": "vite preview",
     "lint": "eslint ."
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "ts-prune": "^0.10.3"
+  },
   "prettier": {
     "printWidth": 120,
     "singleQuote": true

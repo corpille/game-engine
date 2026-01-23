@@ -1,4 +1,4 @@
-import { Vec2 } from '../types';
+import { Rect, Vec2 } from '../types';
 
 export default class Camera {
   pos: Vec2;
@@ -7,12 +7,7 @@ export default class Camera {
   zoom = 1;
 
   get bounds() {
-    return {
-      x: this.pos.x,
-      y: this.pos.y,
-      w: this.width / this.zoom,
-      h: this.height / this.zoom,
-    };
+    return new Rect(this.pos.x, this.pos.y, this.width / this.zoom, this.height / this.zoom);
   }
 
   constructor(width: number, height: number) {

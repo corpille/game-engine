@@ -18,12 +18,19 @@ import { Entity, Game, Input, Scene } from '../engine/core';
 import { Vec2 } from '../engine/types';
 import { CarboardComponent } from './Carboard.component';
 import { createPlayer } from './player.factory';
-import { getImage } from '../engine/utils';
 import cardboardSrc from '/assets/cardboard.webp';
 import shadowSrc from '/assets/shadow.webp';
 import tilesetSrc from '/assets/tileset.webp';
 import treatSrc from '/assets/treat.webp';
 import { createWorldMap } from './worldMap.factory';
+
+function getImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.src = src;
+    image.onload = () => resolve(image);
+  });
+}
 
 (async function () {
   const cardboardImage = await getImage(cardboardSrc);
@@ -56,7 +63,7 @@ import { createWorldMap } from './worldMap.factory';
   sprite.frame = { x: 0, y: 0, w: 40, h: 40 };
   collider.solid = true;
   collider.size = { w: 30, h: 10 };
-  collider.offset = { x: 5, y: 30 };
+  collider.offset = new Vec2(5, 30);
 
   cardboard.add(transform).add(sprite).add(collider).add(new Interactable()).add(new CarboardComponent(treatImage));
 

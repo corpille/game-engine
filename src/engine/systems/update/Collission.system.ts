@@ -1,7 +1,7 @@
 import { Entity, Input, Scene } from '../../core';
 import { Collider, Sprite, Transform } from '../../components';
 import { MovementSystem } from '../../systems';
-import { aabbOverlaps, resolveAABB } from '../../utils';
+import { aabbOverlaps, resolveAABB } from '../../utils/number.utils';
 import { UpdateSystem } from '../../types';
 
 export default class CollisionSystem extends UpdateSystem {

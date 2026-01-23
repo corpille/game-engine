@@ -1,6 +1,6 @@
 import Tileset from '../core/TileSet';
 
-export type TileSide = {
+type TileSide = {
   top: boolean;
   right: boolean;
   bottom: boolean;
@@ -27,7 +27,7 @@ export class TileDef {
 /**
  * The id of a tile.
  */
-export type TileId = number;
+type TileId = number;
 
 /**
  * A layer of tiles.
@@ -46,13 +46,8 @@ export type TileLayer = {
   tileDefs: Map<TileId, TileDef>;
 };
 
-/**
- * The tilemap data.
- * @param tileSize - The size of the tiles.
- * @param layers - The layers of the tilemap.
- * @param tileDefs - The tile definitions.
- */
-export type TileMapData = {
-  tileSize: number;
-  layers: TileLayer[];
+export type NavTile = {
+  walkable: boolean;
+  height: number;
+  sides: TileSide;
 };
