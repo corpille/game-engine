@@ -22,7 +22,7 @@ export default class CollisionSystem extends UpdateSystem {
         const bSprite = b.get(Sprite);
         if (!bCollider || !bTransform || !bSprite) continue;
 
-        if (aabbOverlaps(a.getColliderBounds(), b.getColliderBounds())) {
+        if (aTransform.elevation === bTransform.elevation && aabbOverlaps(a.getColliderBounds(), b.getColliderBounds())) {
           this.onCollision(a, b);
         }
       }
