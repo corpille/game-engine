@@ -1,6 +1,6 @@
 import { Rect, Vec2 } from '../types';
 import { aabbOverlaps } from '../utils/number.utils';
-import { Transform, Sprite, Collider, Camera } from '../components';
+import { Transform, Sprite, Collider } from '../components';
 
 type ComponentClass<T> = new (...args: any[]) => T;
 
