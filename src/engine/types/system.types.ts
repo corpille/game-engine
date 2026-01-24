@@ -1,5 +1,5 @@
 import { TileLayer } from '../types';
-import { Scene, Input } from '../core';
+import { Scene } from '../core';
 
 export class System {
   public runsAfter?: SystemCtor[];
@@ -11,7 +11,7 @@ export type SystemCtor<T extends System = System> = new (...args: any[]) => T;
 export type Pipeline = 'update' | 'render' | 'renderUI';
 
 export class UpdateSystem extends System {
-  public update(scene: Scene, dt: number, input: Input): void {}
+  public update(scene: Scene, dt: number): void {}
 }
 
 export class RenderSystem extends System {

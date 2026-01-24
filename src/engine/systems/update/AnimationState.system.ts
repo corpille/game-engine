@@ -6,7 +6,7 @@ import { UpdateSystem } from '../../types';
 export default class AnimationStateSystem extends UpdateSystem {
   public runsBefore = [CollisionSystem];
 
-  public update(scene: Scene, dt: number): void {
+  public update(scene: Scene): void {
     for (const e of scene.entities) {
       const animation = e.get(AnimationState);
       const movement = e.get(Movement);

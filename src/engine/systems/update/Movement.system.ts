@@ -1,4 +1,4 @@
-import { Input, Scene } from '../../core';
+import { Scene } from '../../core';
 import { Movement, Transform } from '../../components';
 import { PlayerInputSystem } from '../../systems';
 import { UpdateSystem, Vec2 } from '../../types';
@@ -19,7 +19,7 @@ const opposite: Record<string, string> = {
 export default class MovementSystem extends UpdateSystem {
   public runsAfter = [PlayerInputSystem];
 
-  public update(scene: Scene, dt: number, input: Input): void {
+  public update(scene: Scene, dt: number): void {
     for (const e of scene.entities) {
       const transform = e.get(Transform);
       const movement = e.get(Movement);

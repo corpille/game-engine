@@ -3,8 +3,6 @@ export { default as AnimationStateSystem } from './update/AnimationState.system'
 export { default as CameraFollowSystem } from './update/CameraFollow.system';
 export { default as CollisionSystem } from './update/Collission.system';
 export { default as InteractionDetectionSystem } from './update/InteractionDetection.system';
-export { default as InteractionInputSystem } from './update/InteractionInput.system';
-export { default as InteractionUISystem } from './render/InteractionUI.system';
 export { default as MovementSystem } from './update/Movement.system';
 export { default as PlayerInputSystem } from './update/PlayerInput.system';
 export { default as EntityRenderSystem } from './render/EntityRender.system';

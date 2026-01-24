@@ -1,4 +1,4 @@
-import { Input, Scene } from '../../core';
+import { Scene } from '../../core';
 import { Player, Transform, InteractionState, Interactable } from '../../components';
 import { MovementSystem } from '../../systems';
 import { UpdateSystem } from '../../types';
@@ -6,7 +6,7 @@ import { UpdateSystem } from '../../types';
 export default class InteractionDetectionSystem extends UpdateSystem {
   public runsAfter = [MovementSystem];
 
-  public update(scene: Scene, dt: number, input: Input): void {
+  public update(scene: Scene, dt: number): void {
     const player = scene.findEntityWith(Player, Transform, InteractionState);
     if (!player) return;
 
@@ -14,7 +14,7 @@ export default class InteractionDetectionSystem extends UpdateSystem {
     const pTransform = player.get(Transform);
     const interaction = player.get(InteractionState);
 
-    interaction.target = scene.entities.find((entity) => {
+    const target = scene.entities.find((entity) => {
       const interactable = entity.get(Interactable);
       const transform = entity.get(Transform);
       if (!interactable || !transform || transform.elevation !== pTransform.elevation) return false;
@@ -28,5 +28,17 @@ export default class InteractionDetectionSystem extends UpdateSystem {
 
       return distSq <= radius ** 2;
     });
+
+    if (!interaction.target && target) {
+       scene.eventBus.emit("ui.show", {
+       id: "interaction_prompt",
+      });
+    } else if (interaction.target && !target) {
+      scene.eventBus.emit("ui.hide", {
+        id: "interaction_prompt",
+      });
+    }
+
+    interaction.target = target;
   }
 }

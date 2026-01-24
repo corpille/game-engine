@@ -1,9 +1,7 @@
 export default class Interactable {
-  prompt: string;
   radius: number;
 
-  constructor(prompt = 'Press E', radius = 32) {
-    this.prompt = prompt;
+  constructor(radius = 32) {
     this.radius = radius;
   }
 }

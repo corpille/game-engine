@@ -4,8 +4,6 @@ import {
   CameraFollowSystem,
   CollisionSystem,
   InteractionDetectionSystem,
-  InteractionInputSystem,
-  InteractionUISystem,
   PlayerInputSystem,
   EntityRenderSystem,
   SpriteFlipSystem,
@@ -14,15 +12,18 @@ import {
   MovementSystem,
 } from '../engine/systems';
 import { Collider, Sprite, Transform, Camera, Interactable } from '../engine/components';
-import { Entity, Game, Input, Scene } from '../engine/core';
+import { Entity, Game, Scene } from '../engine/core';
 import { Vec2 } from '../engine/types';
-import { CarboardComponent } from './Carboard.component';
 import { createPlayer } from './player.factory';
 import cardboardSrc from '/assets/cardboard.webp';
 import shadowSrc from '/assets/shadow.webp';
 import tilesetSrc from '/assets/tileset.webp';
 import treatSrc from '/assets/treat.webp';
 import { createWorldMap } from './worldMap.factory';
+import { InteractionPrompt, UILayer } from '../engine/ui-components';
+import { Anchor } from '../engine/ui-components/UINode';
+import CardboardSystem from './Cardboard.system';
+import Cardboard from './Cardboard.component';
 
 function getImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve) => {
@@ -58,12 +59,12 @@ function getImage(src: string): Promise<HTMLImageElement> {
   collider.size = { w: 30, h: 10 };
   collider.offset = new Vec2(5, 30);
 
-  cardboard.add(transform).add(sprite).add(collider).add(new Interactable()).add(new CarboardComponent(treatImage));
+  cardboard.add(transform).add(sprite).add(collider).add(new Interactable()).add(new Cardboard(3));
 
   scene.addEntity(cardboard);
 
   // Add camera
-  const cameraEntity = new Entity().add(new Camera(1.8));
+  const cameraEntity = new Entity().add(new Camera(1.5));
   scene.addEntity(cameraEntity);
 
   const worldMap = createWorldMap([tilesetImage, shadowImage], 64);
@@ -79,24 +80,24 @@ function getImage(src: string): Promise<HTMLImageElement> {
     new AnimationStateSystem(),
     new TilemapRenderSystem(),
     new EntityRenderSystem(),
-    new InteractionInputSystem(),
     new InteractionDetectionSystem(),
-    new InteractionUISystem(),
     new PlayerInputSystem(),
     new MovementSystem(),
+    new CardboardSystem(treatImage),
   ];
 
   scene.addSystems(...systems);
 
+  const uiLayer = new UILayer();
+  const prompt = new InteractionPrompt('interaction_prompt', new Vec2(0, -20));
+  prompt.anchor = Anchor.BOTTOM_CENTER;
+  prompt.text = "Press E to interact";
+  uiLayer.root.addChild(prompt);
+  scene.addUILayer(uiLayer);
+
   scene.buildPipelines();
 
-  scene.eventBus.on('interact', ({ player, target }) => {
-    if (target.has(CarboardComponent)) {
-      target.get(CarboardComponent).interact(scene, target);
-    }
-  });
+  const game = new Game().addScene('game', scene).setScene('game');
 
-  const game = new Game(new Input()).addScene('game', scene).setScene('game');
-
-  requestAnimationFrame(game.loop.bind(game));
+  game.start();
 })();

@@ -51,12 +51,15 @@ export default class DebugRenderSystem extends RenderSystem {
   }
 
   drawCollider(ctx: CanvasRenderingContext2D, entity: Entity) {
+    ctx.save();
     const colliderBound = entity.getColliderBounds();
     ctx.strokeStyle = 'blue';
     ctx.strokeRect(colliderBound.x, colliderBound.y, colliderBound.w, colliderBound.h);
+    ctx.restore();
   }
 
   drawInteractableRadius(ctx: CanvasRenderingContext2D, entity: Entity) {
+    ctx.save();
     ctx.beginPath();
     ctx.strokeStyle = 'green';
     const center = entity.getCenter();
@@ -69,6 +72,7 @@ export default class DebugRenderSystem extends RenderSystem {
       false,
     );
     ctx.stroke();
+    ctx.restore();
   }
 
   drawGrid(ctx: CanvasRenderingContext2D, map: WorldMap): void {

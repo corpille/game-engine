@@ -3,3 +3,4 @@ export * from './math.types';
 export * from './component.types';
 export * from './system.types';
 export * from './tile.types';
+export * from './input.types';

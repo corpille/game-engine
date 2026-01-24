@@ -1,9 +1,9 @@
-import { Entity, Input, Scene } from '../../core';
+import { Entity, Scene } from '../../core';
 import { Camera, Player, Transform } from '../../components';
 import { UpdateSystem } from '../../types';
 
 export default class CameraFollowSystem extends UpdateSystem {
-  update(scene: Scene, dt: number, input: Input): void {
+  update(scene: Scene): void {
     let target: Entity | undefined;
 
     const cameraEntity = scene.findEntityWith(Camera);

@@ -1,21 +1,23 @@
-import Input from './Input';
+import { InputManager } from '../input';
 import Scene from './Scene';
 
 const FIXED_FPS = 60;
 const FIXED_DT = 1 / FIXED_FPS;
 
 export default class Game {
+  public windowSize: { w: number; h: number };
+
   private canvas: HTMLCanvasElement;
   private scenes: Map<string, Scene> = new Map();
   private currentScene?: Scene;
-  private input: Input;
   private ctx: CanvasRenderingContext2D;
   private lastTime: number = 0;
   private accumulator: number = 0;
-  public windowSize: { w: number; h: number };
+  private inputManager = new InputManager();
 
-  constructor(input: Input) {
-    this.input = input;
+
+
+  constructor() {
     this.init();
   }
 
@@ -32,6 +34,13 @@ export default class Game {
      this.resizeCanvas.bind(this)()
     });
 ;
+  }
+
+  start() {
+    if (!this.currentScene) return;
+    this.inputManager.attach(this.currentScene);
+    this.inputManager.start(this.canvas);
+    requestAnimationFrame(this.loop.bind(this));
   }
 
   resizeCanvas() {
@@ -59,8 +68,7 @@ export default class Game {
   }
 
   update(dt: number) {
-    this.currentScene?.update(dt, this.input);
-    this.input.clearFrame();
+    this.currentScene?.update(dt);
   }
 
   render() {
@@ -92,6 +100,7 @@ export default class Game {
     }
 
     this.render();
+    this.currentScene?.endFrame();
     requestAnimationFrame(this.loop.bind(this));
   }
 }

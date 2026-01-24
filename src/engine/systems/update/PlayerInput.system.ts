@@ -1,10 +1,11 @@
-import { Input, Scene } from '../../core';
+import { Scene } from '../../core';
 import { Movement, Player } from '../../components';
 import { Vec2 } from '../../types';
 import { UpdateSystem } from '../../types';
 
 export default class PlayerInputSystem extends UpdateSystem {
-  public update(scene: Scene, dt: number, input: Input): void {
+  public update(scene: Scene): void {
+    const input = scene.input;
     for (const e of scene.entities) {
       const movement = e.get(Movement);
       const player = e.get(Player);

@@ -1,4 +1,4 @@
-import { Entity, Input, Scene } from '../../core';
+import { Entity, Scene } from '../../core';
 import { Collider, Sprite, Transform } from '../../components';
 import { MovementSystem } from '../../systems';
 import { aabbOverlaps, resolveAABB } from '../../utils/number.utils';
@@ -7,7 +7,7 @@ import { UpdateSystem } from '../../types';
 export default class CollisionSystem extends UpdateSystem {
   public runsAfter = [MovementSystem];
 
-  public update(scene: Scene, dt: number, input: Input): void {
+  public update(scene: Scene): void {
     for (let i = 0; i < scene.entities.length; i++) {
       const a = scene.entities[i];
       const aCollider = a.get(Collider);
