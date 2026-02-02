@@ -1,6 +1,6 @@
-import { WorldMap } from '../engine/components';
-import Tileset from '../engine/core/TileSet';
-import { TileDef } from '../engine/types/tile.types';
+import { WorldMap } from '../../engine/components';
+import Tileset from '../../engine/core/TileSet';
+import { TileDef } from '../../engine/types/tile.types';
 
 export function createWorldMap(tilesetImage: HTMLImageElement[], tileSize: number): WorldMap {
   const shadowTileDefs = new Map([

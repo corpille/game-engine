@@ -1,6 +1,6 @@
-import { Entity } from '../engine/core';
-import { Frame, Vec2 } from '../engine/types';
-import { AnimationState, Collider, InteractionState, Movement, Player, Sprite, Transform } from '../engine/components';
+import { Entity } from '../../engine/core';
+import { Frame, Vec2 } from '../../engine/types';
+import { AnimationState, Collider, InteractionState, Movement, Player, Sprite, Transform } from '../../engine/components';
 import imageSrc from '/assets/cat.webp';
 
 const image = new Image();

@@ -54,7 +54,24 @@ export class Vec2 {
     return this;
   }
 
+
+  div(other: Vec2): Vec2 {
+    this.x /= other.x;
+    this.y /= other.y;
+    return this;
+  }
+
+  divScalar(scalar: number): Vec2 {
+    this.x /= scalar;
+    this.y /= scalar;
+    return this;
+  }
+
   equals(vec: Vec2): boolean {
     return vec.x === this.x && vec.y === this.y;
+  }
+
+  distance(vec: Vec2): number {
+    return Math.sqrt((this.x - vec.x) ** 2 + (this.y - vec.y) ** 2);
   }
 }

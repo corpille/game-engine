@@ -13,17 +13,20 @@ import {
 } from '../engine/systems';
 import { Collider, Sprite, Transform, Camera, Interactable } from '../engine/components';
 import { Entity, Game, Scene } from '../engine/core';
-import { Vec2 } from '../engine/types';
-import { createPlayer } from './player.factory';
+import { Rect, Vec2 } from '../engine/types';
+import { createPlayer } from './factories/player.factory';
 import cardboardSrc from '/assets/cardboard.webp';
 import shadowSrc from '/assets/shadow.webp';
 import tilesetSrc from '/assets/tileset.webp';
 import treatSrc from '/assets/treat.webp';
-import { createWorldMap } from './worldMap.factory';
+import { createWorldMap } from './factories/worldMap.factory';
 import { InteractionPrompt, UILayer } from '../engine/ui-components';
 import { Anchor } from '../engine/ui-components/UINode';
-import CardboardSystem from './Cardboard.system';
-import Cardboard from './Cardboard.component';
+import CardboardSystem from './systems/Cardboard.system';
+import Cardboard from './components/Cardboard.component';
+import BoidSystem from './systems/Boid.system';
+import catSrc from '/assets/cat.webp';
+import { generateBoids } from './factories/boids.factory';
 
 function getImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve) => {
@@ -38,12 +41,13 @@ function getImage(src: string): Promise<HTMLImageElement> {
   const shadowImage = await getImage(shadowSrc);
   const tilesetImage = await getImage(tilesetSrc);
   const treatImage = await getImage(treatSrc);
+  const catImage = await getImage(catSrc);
 
   // Init scene
   const scene = new Scene();
 
   // Add player
-  scene.addEntity(createPlayer(400, 300));
+  scene.addEntities(createPlayer(400, 300));
 
   // Add cardboard
   const cardboard = new Entity();
@@ -61,14 +65,14 @@ function getImage(src: string): Promise<HTMLImageElement> {
 
   cardboard.add(transform).add(sprite).add(collider).add(new Interactable()).add(new Cardboard(3));
 
-  scene.addEntity(cardboard);
+  scene.addEntities(cardboard);
 
   // Add camera
   const cameraEntity = new Entity().add(new Camera(1.5));
-  scene.addEntity(cameraEntity);
+  scene.addEntities(cameraEntity);
 
   const worldMap = createWorldMap([tilesetImage, shadowImage], 64);
-  scene.addEntity(new Entity().add(worldMap));
+  scene.addEntities(new Entity().add(worldMap));
 
   // Add systems
   const systems = [
@@ -84,9 +88,15 @@ function getImage(src: string): Promise<HTMLImageElement> {
     new PlayerInputSystem(),
     new MovementSystem(),
     new CardboardSystem(treatImage),
+    new BoidSystem(),
   ];
 
   scene.addSystems(...systems);
+
+  const catSprite = new Sprite(catImage);
+  catSprite.frame = { x: 0, y: 0, w: 20, h: 20 };
+  scene.addEntities(...generateBoids(catSprite, new Rect(40, 100, 720, 440), 40, 'cat'));
+
 
   const uiLayer = new UILayer();
   const prompt = new InteractionPrompt('interaction_prompt', new Vec2(0, -20));

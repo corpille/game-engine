@@ -46,8 +46,8 @@ export default class Scene {
     return this;
   }
 
-  addEntity(entity: Entity) {
-    this.entities.push(entity);
+  addEntities(...entities: Entity[]) {
+    this.entities.push(...entities);
     return this;
   }
 

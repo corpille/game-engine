@@ -1,3 +1,4 @@
+import BoidContainer from '../../../game/components/BoidContainer.components';
 import { Interactable, Transform, Collider, WorldMap } from '../../components';
 import { Entity, Scene } from '../../core';
 import { EntityRenderSystem } from '../../systems';
@@ -22,6 +23,23 @@ export default class DebugRenderSystem extends RenderSystem {
           }
         }
       }
+
+      const boidContainers = scene.findEntitiesWith(BoidContainer);
+      boidContainers.forEach((boidContainerEntity) => {
+        const boidContainer = boidContainerEntity.get(BoidContainer);
+        ctx.save();
+        ctx.strokeStyle = 'purple';
+        ctx.strokeRect(boidContainer.box.x, boidContainer.box.y, boidContainer.box.w, boidContainer.box.h);
+        ctx.restore();
+
+
+        ctx.save();
+        ctx.strokeStyle = 'green';
+        ctx.strokeRect(boidContainer.box.x + boidContainer.margin, boidContainer.box.y + boidContainer.margin, boidContainer.box.w - boidContainer.margin * 2, boidContainer.box.h - boidContainer.margin * 2);
+        ctx.restore();
+      })
+
+
       ctx.restore();
     }
 

@@ -1,9 +1,9 @@
-import { Entity, Scene } from "../engine/core";
-import { Collider, Interactable, InteractionState, Player, Sprite, Transform } from "../engine/components";
-import { UpdateSystem, Vec2 } from "../engine/types";
-import { randomBetween } from "../engine/utils/number.utils";
-import { InteractionDetectionSystem } from "../engine/systems";
-import Cardboard from "./Cardboard.component";
+import { Entity, Scene } from "../../engine/core";
+import { Collider, Interactable, InteractionState, Player, Sprite, Transform } from "../../engine/components";
+import { UpdateSystem, Vec2 } from "../../engine/types";
+import { randomBetween } from "../../engine/utils/number.utils";
+import { InteractionDetectionSystem } from "../../engine/systems";
+import Cardboard from "../components/Cardboard.component";
 
 export default class InteractionInputSystem extends UpdateSystem {
     public runsAfter = [InteractionDetectionSystem];
@@ -33,7 +33,7 @@ export default class InteractionInputSystem extends UpdateSystem {
     private interact(scene: Scene, target: Entity) {
         const treat = this.extractTreat(target);
         if (treat) {
-            scene.addEntity(treat);
+            scene.addEntities(treat);
         }
         if (!target.get(Cardboard).nbTreat) {
             target.delete(Interactable);

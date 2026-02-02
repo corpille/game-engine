@@ -20,21 +20,25 @@ export default class MovementSystem extends UpdateSystem {
   public runsAfter = [PlayerInputSystem];
 
   public update(scene: Scene, dt: number): void {
-    for (const e of scene.entities) {
+    for (const e of scene.findEntitiesWith(Transform, Movement)) {
       const transform = e.get(Transform);
       const movement = e.get(Movement);
       const worldMap = scene.findEntityWith(WorldMap)?.get(WorldMap);
 
-      if (!transform || !movement || !worldMap) continue;
+      if (!transform || !movement) continue;
 
       if (movement.velocity.x === 0 && movement.velocity.y === 0) continue;
 
       const nextPosition = Vec2.from(transform.position).add(Vec2.from(movement.velocity).mulScalar(dt));
 
-      const nextCell = worldMap.cellAtWorld(nextPosition.x, nextPosition.y);
+      if (worldMap) {
+        const nextCell = worldMap.cellAtWorld(nextPosition.x, nextPosition.y);
 
-      if (this.canMove(worldMap, transform.position, nextPosition)) {
-        this.move(transform, nextPosition, nextCell.height);
+        if (this.canMove(worldMap, transform.position, nextPosition)) {
+          this.move(transform, nextPosition, nextCell.height);
+        }
+      } else {
+        this.move(transform, nextPosition, transform.elevation);
       }
     }
   }
